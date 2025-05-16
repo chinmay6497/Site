@@ -184,13 +184,14 @@
               <icon name="ph:whatsapp-logo-duotone" class="w-5 h-5" />
             </span>
             <input
-              type="search"
+              type="text"
               name="whatsapp"
               id="whatsapp"
-              :value="whatsapp"
-              @input="$emit('update:whatsapp', $event.target.value)"
+              :value="formattedWhatsapp"
+              @input="onWhatsappInput($event.target.value)"
               class="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              placeholder="+9190000000000"
+              placeholder="+1-555-123-4567"
+              maxlength="16"
             />
           </div>
         </div>
@@ -210,4 +211,35 @@ const props = defineProps([
   "youtube",
   "email",
 ]);
+import { computed } from 'vue';
+
+function formatUSNumber(input) {
+  // Remove all non-digit characters except +
+  let digits = input.replace(/[^\d]/g, '');
+  if (!digits.startsWith('1')) digits = '1' + digits.replace(/^1*/, '');
+  digits = digits.slice(0, 11); // +1 and 10 digits
+  let formatted = '+1';
+  if (digits.length > 1) formatted += '-' + digits.slice(1, 4);
+  if (digits.length > 4) formatted += '-' + digits.slice(4, 7);
+  if (digits.length > 7) formatted += '-' + digits.slice(7, 11);
+  return formatted;
+}
+
+const formattedWhatsapp = computed(() => formatUSNumber(props.whatsapp || ''));
+const isValidUSNumber = computed(() => {
+  const digits = (props.whatsapp || '').replace(/[^\d]/g, '');
+  return digits.length === 11 && digits.startsWith('1');
+});
+
+function onWhatsappInput(val) {
+  // Remove all non-digit characters except +
+  let digits = val.replace(/[^\d]/g, '');
+  if (!digits.startsWith('1')) digits = '1' + digits.replace(/^1*/, '');
+  digits = digits.slice(0, 11);
+  let formatted = '+1';
+  if (digits.length > 1) formatted += '-' + digits.slice(1, 4);
+  if (digits.length > 4) formatted += '-' + digits.slice(4, 7);
+  if (digits.length > 7) formatted += '-' + digits.slice(7, 11);
+  $emit('update:whatsapp', formatted.replace(/[^\d]/g, '').replace(/^1/, '+1-').replace(/(\d{3})(\d{3})(\d{4})/, '+1-$1-$2-$3'));
+}
 </script>

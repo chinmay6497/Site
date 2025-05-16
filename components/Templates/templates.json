@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Minimal",
+    "component": "Minimal",
+    "thumbnail": "/thumbnails/minimal.png",
+    "category": "Simple"
+  },
+  {
+    "name": "Professional",
+    "component": "Professional",
+    "thumbnail": "/thumbnails/professional.png",
+    "category": "Business"
+  }
+] 

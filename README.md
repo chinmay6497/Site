@@ -7,9 +7,9 @@ Try [Supersaas today](https://supersaas.dev)
 
 [<img src="https://essentials.supersaas.dev/supersaas-banner.png">](https://supersaas.dev?ref=github-onelink)
 
-# Onelink
+# Link by Chinmay
 
-Onelink is an experimental link-in-bio tool, where the data lives in the URL. 
+Link by Chinmay is an experimental link-in-bio tool, where the data lives in the URL. 
 
 
 
@@ -65,3 +65,5 @@ npm run preview
 ```
 
 Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.
+
+Author: chinmay raval
